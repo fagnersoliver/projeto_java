@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Use this file to deploy some handlers/chains and services      --><!-- Two ways to do this:                                           --><!--   java org.apache.axis.client.AdminClient deploy.wsdd          --><!--      after the axis server is running                          --><!-- or                                                             --><!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   --><!--      from the same directory that the Axis engine runs         --><deployment xmlns="http://xml.apache.org/axis/wsdd/" xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from ImplementLoginService WSDL service -->
+
+  <service name="ImplementLogin" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://Impl.ws.poney.com.br"/>
+      <parameter name="wsdlServiceElement" value="ImplementLoginService"/>
+      <parameter name="schemaQualified" value="http://bean.ws.poney.com.br,http://Impl.ws.poney.com.br"/>
+      <parameter name="wsdlServicePort" value="ImplementLogin"/>
+      <parameter name="className" value="br.com.poney.ws.Impl.ImplementLogin"/>
+      <parameter name="wsdlPortType" value="ImplementLogin"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation xmlns:operNS="http://Impl.ws.poney.com.br" xmlns:retNS="http://Impl.ws.poney.com.br" xmlns:rtns="http://bean.ws.poney.com.br" name="validaLogin" qname="operNS:validaLogin" returnQName="retNS:validaLoginReturn" returnType="rtns:BeanLogin" soapAction="">
+        <parameter xmlns:pns="http://Impl.ws.poney.com.br" xmlns:tns="http://bean.ws.poney.com.br" qname="pns:obj" type="tns:BeanLogin"/>
+      </operation>
+      <parameter name="allowedMethods" value="validaLogin"/>
+
+      <typeMapping xmlns:ns="http://bean.ws.poney.com.br" qname="ns:BeanLogin" type="java:br.com.poney.ws.bean.BeanLogin" serializer="org.apache.axis.encoding.ser.BeanSerializerFactory" deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory" encodingStyle=""/>
+  </service>
+</deployment>
